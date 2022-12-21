@@ -6,6 +6,7 @@ export default class Session {
         localStorage.setItem("sessionId", args.sessionId);
         localStorage.setItem("uuid", args.uuid);
         localStorage.setItem("display", args.display);
+        localStorage.setItem("base64", args.base64);
     };
     // get user data from local storage
     getUserSession = () => {
@@ -13,6 +14,7 @@ export default class Session {
             sessionId: localStorage.getItem("sessionId") || "",
             uuid: localStorage.getItem("uuid") || "",
             display: localStorage.getItem("display") || "",
+            base64: localStorage.getItem("base64") || ""
         };
         return session;
     };

@@ -22,7 +22,8 @@ const loginUser = (data: LoginTypes) => {
             const storageData = {
                 sessionId: resp.sessionId,
                 uuid: resp.user.uuid,
-                display: resp.user.display
+                display: resp.user.display,
+                base64: base64
             }
             // Store data in localStorage
             session.setUserSession(storageData);
