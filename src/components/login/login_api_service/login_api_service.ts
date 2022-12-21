@@ -1,0 +1,41 @@
+import toast from 'react-hot-toast';
+import ApiService from "../../../utils/api_service/api_service";
+import Session from "../../../utils/session/session";
+import { LoginServiceTypes, LoginTypes } from "../login_types/login_types";
+const apiService = new ApiService();
+const session = new Session();
+
+const loginUser = (data: LoginTypes) => {
+    const url = 'https://kibana.ampath.or.ke/openmrs/ws/rest/v1/session';
+    // Convert the login data to Base64 using format 'username:password'
+    const base64 = window.btoa(`${data.username}:${data.password}`);
+    // Add Authorization header
+    const header = {
+        Authorization: `Basic ${base64}`
+    }
+    // Show loading toast
+    const loadToastId = toast.loading('Authentication In Progress...');
+    // Send API Request
+    apiService.SendRequest({ url: url, method: "GET", headers: header }).then(async (response) => {
+        const resp: LoginServiceTypes = await response.json();
+        if (resp.authenticated) {
+            const storageData = {
+                sessionId: resp.sessionId,
+                uuid: resp.user.uuid,
+                display: resp.user.display
+            }
+            // Store data in localStorage
+            session.setUserSession(storageData);
+            // Show user success toast message
+            toast.success('Authentication Successful.', { id: loadToastId });
+        } else {
+            // Show user error toast message
+            toast.error('Authentication Error. Please Enter Your Correct Credentials.', { id: loadToastId });
+        }
+    }).catch((e) => {
+        // Show user error toast message
+        toast.error(`${e}`, { id: loadToastId });
+    })
+}
+
+export default loginUser;
