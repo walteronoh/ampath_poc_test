@@ -1,0 +1,15 @@
+.dashboard-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+}
+
+.logout-btn {
+    padding: 10px 15px;
+    border: none;
+}
+
+.logout-btn:hover {
+    background-color: #ff6347;
+    color: #ffffff
+}

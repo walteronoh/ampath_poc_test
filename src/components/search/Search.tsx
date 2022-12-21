@@ -1,4 +1,4 @@
-
+import './Search.css';
 import { useState } from 'react';
 import DataTable, { TableColumn } from 'react-data-table-component';
 import searchUser from './search_api_service/search_api_service';
@@ -6,7 +6,6 @@ import { MODALMODES, ModalOptions, ModalOptionsProps, PatientSearchTypes } from 
 import Modal from 'react-modal';
 import Visits from '../visits/Visits';
 import Vitals from '../vitals/Vitals';
-
 
 function Search() {
     const [name, setName] = useState('');
@@ -29,12 +28,12 @@ function Search() {
             name: 'Visits',
             selector: row => row.person.gender,
             button: true,
-            cell: (row) => <button onClick={() => handleVisitClick(row)}>View</button>,
+            cell: (row) => <button className='table-btn' onClick={() => handleVisitClick(row)}>View</button>,
         },
         {
             name: 'Vitals',
             button: true,
-            cell: (row) => <button onClick={() => handleVitalClick(row)}>View</button>,
+            cell: (row) => <button className='table-btn' onClick={() => handleVitalClick(row)}>View</button>,
         }
     ];
 
@@ -69,37 +68,39 @@ function Search() {
     }
 
     return (
-        <>
-            <div>
-                <label>Search Patient.</label><br/>
-                <input type='search' placeholder='Search Patient' onChange={e => setName(e.target.value)} />
+        <div>
+            <div className='search-inputs'>
+                {/* <div> */}
+                    <label>Search Patient.</label><br />
+                    <input type='search' placeholder='Search Patient' onChange={e => setName(e.target.value)} />
+                {/* </div> */}
                 <input type='button' value='Search' onClick={handleSearch} />
-                <div>
-                    <DataTable
-                        title='Patient List'
-                        columns={columns}
-                        data={data}
-                        striped
-                        persistTableHead
-                        highlightOnHover
-                        pagination
-                    />
-                    <Modal
-                        isOpen={modalOptions.isOpen}
-                        onRequestClose={closeModal}
-                        shouldCloseOnOverlayClick={false}
-                    >
-                        <button onClick={closeModal}>close</button>
-                        <h4>{modalOptions.modalText}</h4>
-                        {
-                            modalOptions.mode === MODALMODES.VISITMODE
-                                ? <Visits uuid={modalOptions.uuid} />
-                                : <Vitals uuid={modalOptions.uuid} />
-                        }
-                    </Modal>
-                </div>
             </div>
-        </>
+            <div>
+                <DataTable
+                    title='Patient List'
+                    columns={columns}
+                    data={data}
+                    striped
+                    persistTableHead
+                    highlightOnHover
+                    pagination
+                />
+                <Modal
+                    isOpen={modalOptions.isOpen}
+                    onRequestClose={closeModal}
+                    shouldCloseOnOverlayClick={false}
+                >
+                    <button className='modal-btn' onClick={closeModal}>Close</button>
+                    <h4>{modalOptions.modalText}</h4>
+                    {
+                        modalOptions.mode === MODALMODES.VISITMODE
+                            ? <Visits uuid={modalOptions.uuid} />
+                            : <Vitals uuid={modalOptions.uuid} />
+                    }
+                </Modal>
+            </div>
+        </div>
     );
 }
 

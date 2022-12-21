@@ -26,7 +26,7 @@ const searchUser = (name: string): Promise<Array<PatientSearchTypes>> => {
             return results;
         }
         // Show user warning toast message
-        toast.error('No User Found.', { id: loadToastId });
+        toast.error('Patient Not Found.', { id: loadToastId });
         return [];
     }).catch((e) => {
         // Show user error toast message
