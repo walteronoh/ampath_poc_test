@@ -11,4 +11,20 @@ interface PersonInfoTypes {
     age: string;
 }
 
-export type { PatientSearchTypes }
+interface ModalOptions {
+    isOpen: boolean;
+    modalText: string;
+    mode: string;
+    uuid: string;
+}
+
+export enum MODALMODES { VISITMODE = 'visitmode', VITALMODE = 'vitalmode' };
+
+export const ModalOptionsProps = {
+    isOpen: false,
+    modalText: '',
+    mode: '',
+    uuid: ''
+}
+
+export type { PatientSearchTypes, ModalOptions }

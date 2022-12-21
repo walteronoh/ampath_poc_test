@@ -1,12 +1,16 @@
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import DataTable, { TableColumn } from 'react-data-table-component';
 import searchUser from './search_api_service/search_api_service';
-import { PatientSearchTypes } from './search_types/search_types';
+import { MODALMODES, ModalOptions, ModalOptionsProps, PatientSearchTypes } from './search_types/search_types';
+import Modal from 'react-modal';
+import Visits from '../visits/Visits';
+import Vitals from '../vitals/Vitals';
 
 
 function Search() {
     const [name, setName] = useState('');
+    const [modalOptions, setModalOptions] = useState<ModalOptions>(ModalOptionsProps);
 
     const columns: TableColumn<PatientSearchTypes>[] = [
         {
@@ -43,23 +47,36 @@ function Search() {
     }
 
     const handleVisitClick = (row: PatientSearchTypes) => {
-         // Show visits modal
-        console.log(row.uuid);
+        setModalOptions({
+            isOpen: true,
+            modalText: 'Patient Visits.',
+            mode: MODALMODES.VISITMODE,
+            uuid: row.uuid
+        });
     }
 
     const handleVitalClick = (row: PatientSearchTypes) => {
-        // Show vitals modal
-        console.log(row.uuid);
+        setModalOptions({
+            isOpen: true,
+            modalText: 'Patient Vitals.',
+            mode: MODALMODES.VITALMODE,
+            uuid: row.uuid
+        });
+    }
+
+    function closeModal() {
+        setModalOptions(ModalOptionsProps);
     }
 
     return (
         <>
             <div>
+                <label>Search Patient.</label><br/>
                 <input type='search' placeholder='Search Patient' onChange={e => setName(e.target.value)} />
                 <input type='button' value='Search' onClick={handleSearch} />
                 <div>
                     <DataTable
-                        title='Patients'
+                        title='Patient List'
                         columns={columns}
                         data={data}
                         striped
@@ -67,6 +84,19 @@ function Search() {
                         highlightOnHover
                         pagination
                     />
+                    <Modal
+                        isOpen={modalOptions.isOpen}
+                        onRequestClose={closeModal}
+                        shouldCloseOnOverlayClick={false}
+                    >
+                        <button onClick={closeModal}>close</button>
+                        <h4>{modalOptions.modalText}</h4>
+                        {
+                            modalOptions.mode === MODALMODES.VISITMODE
+                                ? <Visits uuid={modalOptions.uuid} />
+                                : <Vitals uuid={modalOptions.uuid} />
+                        }
+                    </Modal>
                 </div>
             </div>
         </>

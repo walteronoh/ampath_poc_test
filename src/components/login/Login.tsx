@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import loginUser from './login_api_service/login_api_service';
 
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         const data = {
             username: username,
             password: password
         }
         // Authenticate user
-        loginUser(data);
+        const isValid = await loginUser(data);
+        if (isValid) {
+            // Redirect user to Dashboard
+            navigate("dashboard");
+        }
     }
 
     return (

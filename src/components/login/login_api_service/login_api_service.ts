@@ -1,4 +1,5 @@
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import ApiService from "../../../utils/api_service/api_service";
 import Session from "../../../utils/session/session";
 import { LoginServiceTypes, LoginTypes } from "../login_types/login_types";
@@ -16,7 +17,7 @@ const loginUser = (data: LoginTypes) => {
     // Show loading toast
     const loadToastId = toast.loading('Authentication In Progress...');
     // Send API Request
-    apiService.SendRequest({ url: url, method: "GET", headers: header }).then(async (response) => {
+    return apiService.SendRequest({ url: url, method: "GET", headers: header }).then(async (response) => {
         const resp: LoginServiceTypes = await response.json();
         if (resp.authenticated) {
             const storageData = {
@@ -29,13 +30,16 @@ const loginUser = (data: LoginTypes) => {
             session.setUserSession(storageData);
             // Show user success toast message
             toast.success('Authentication Successful.', { id: loadToastId });
+            return true;
         } else {
             // Show user error toast message
             toast.error('Authentication Error. Please Enter Your Correct Credentials.', { id: loadToastId });
+            return false;
         }
     }).catch((e) => {
         // Show user error toast message
         toast.error(`${e}`, { id: loadToastId });
+        return false;
     })
 }
 

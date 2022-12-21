@@ -5,7 +5,7 @@ const session = new Session();
 function Dashboard() {
     return (
         <>
-            <h1>Welcome {session.getUserSession().display}</h1>
+            <h1>Hello {session.getUserSession().display}</h1>
             <div>
                 <div>
                     <Search />
