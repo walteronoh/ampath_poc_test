@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import loginUser from './login_api_service/login_api_service';
+import logo from '../../asset/ampath_logo.png';
+import './Login.css';
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -21,15 +23,17 @@ function Login() {
     }
 
     return (
-        <div>
-            <h1>Login</h1>
-            <form>
-                <label>Username</label><br />
-                <input type='text' placeholder='Enter Username' onChange={e => setUsername(e.target.value)} /><br />
-                <label>Password</label><br />
-                <input type='password' placeholder='Enter Password' onChange={e => setPassword(e.target.value)} /><br />
-                <input type='button' value='Login' onClick={handleLogin} /><br />
-            </form>
+        <div className='login-body'>
+            <div className='login-body-items'>
+                <img src={logo} />
+                <form className='login-form-items'>
+                    <label>Username</label><br />
+                    <input type='text' placeholder='Enter Username' onChange={e => setUsername(e.target.value)} /><br />
+                    <label>Password</label><br />
+                    <input type='password' placeholder='Enter Password' onChange={e => setPassword(e.target.value)} /><br />
+                    <input type='button' value='LOGIN' onClick={handleLogin} /><br />
+                </form>
+            </div>
         </div>
     )
 }

@@ -1,0 +1,32 @@
+.login-body {
+    position: relative;
+    width: 90vw;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.login-body-items {
+    padding: 2rem
+}
+
+.login-body-items img {
+    width: 100%;
+}
+
+.login-form-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1rem;
+}
+
+.login-form-items input{
+   border-radius: 15px;
+   padding: 15px;
+   border: 1px solid #02307d;
+}
+
+.login-form-items input:focus {
+    outline: none;
+}
