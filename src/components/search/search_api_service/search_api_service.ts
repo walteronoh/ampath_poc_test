@@ -7,7 +7,7 @@ const apiService = new ApiService();
 const session = new Session();
 
 const searchUser = (name: string): Promise<Array<PatientSearchTypes>> => {
-    const url = `https://kibana.ampath.or.ke/openmrs/ws/rest/v1/patient?q=${name}&v=full`;
+    const url = `${process.env.REACT_APP_ENDPOINT}${process.env.REACT_APP_SEARCH_ENDPOINT}?q=${name}&v=full`;
     // fetch the base64 auth from localStorage
     const base64 = session.getUserSession().base64;
     // Add Authorization and Cookie header

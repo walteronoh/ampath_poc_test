@@ -7,7 +7,7 @@ const apiService = new ApiService();
 const session = new Session();
 
 const loginUser = (data: LoginTypes) => {
-    const url = 'https://kibana.ampath.or.ke/openmrs/ws/rest/v1/session';
+    const url = `${process.env.REACT_APP_ENDPOINT}${process.env.REACT_APP_LOGIN_ENDPOINT}`;
     // Convert the login data to Base64 using format 'username:password'
     const base64 = window.btoa(`${data.username}:${data.password}`);
     // Add Authorization header

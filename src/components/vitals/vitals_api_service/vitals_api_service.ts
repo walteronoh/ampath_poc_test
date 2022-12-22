@@ -8,7 +8,7 @@ const session = new Session();
 
 const viewPatientVitals = (uuid: string): Promise<Array<VitalTypes>> => {
     const concepts = '5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5283AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
-    const url = `https://kibana.ampath.or.ke/openmrs/ws/rest/v1/obs?patient=${uuid}&concepts=${concepts}&v=full`;
+    const url = `${process.env.REACT_APP_ENDPOINT}${process.env.REACT_APP_VITALS_ENDPOINT}?patient=${uuid}&concepts=${concepts}&v=full`;
     // fetch the base64 auth from localStorage
     const base64 = session.getUserSession().base64;
     // Add Authorization and Cookie header
