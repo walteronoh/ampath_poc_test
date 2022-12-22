@@ -6,6 +6,7 @@ import { MODALMODES, ModalOptions, ModalOptionsProps, PatientSearchTypes } from 
 import Modal from 'react-modal';
 import Visits from '../visits/Visits';
 import Vitals from '../vitals/Vitals';
+import moment from 'moment';
 
 function Search() {
     const [name, setName] = useState('');
@@ -17,12 +18,16 @@ function Search() {
             selector: row => row.person.display,
         },
         {
-            name: 'Age',
-            selector: row => row.person.age,
-        },
-        {
             name: 'Gender',
             selector: row => row.person.gender,
+        },
+        {
+            name: 'Date Of Birth',
+            selector: row => moment(row.person.birthdate).format("YYYY-MM-DD"),
+        },
+        {
+            name: 'Age',
+            selector: row => row.person.age,
         },
         {
             name: 'Visits',
@@ -71,8 +76,8 @@ function Search() {
         <div>
             <div className='search-inputs'>
                 {/* <div> */}
-                    <label>Search Patient.</label><br />
-                    <input type='search' placeholder='Search Patient' onChange={e => setName(e.target.value)} />
+                <label>Search Patient.</label><br />
+                <input type='search' placeholder='Search Patient' onChange={e => setName(e.target.value)} />
                 {/* </div> */}
                 <input type='button' value='Search' onClick={handleSearch} />
             </div>

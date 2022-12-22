@@ -1,4 +1,4 @@
-
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 import DataTable, { TableColumn, ExpanderComponentProps } from 'react-data-table-component';
 import viewPatientVitals from './vitals_api_service/vitals_api_service';
@@ -12,7 +12,8 @@ function Vitals(props: VitalProps) {
         setData(visits);
     }
     useEffect(() => {
-        handleLoad();
+        if (props.uuid)
+            handleLoad();
     }, [props.uuid]);
     useEffect(() => { }, [props.uuid]);
     const columns: TableColumn<VitalTypes>[] = [
@@ -26,7 +27,7 @@ function Vitals(props: VitalProps) {
         },
         {
             name: 'Date & Time',
-            selector: row => row.obsDatetime,
+            selector: row => moment(row.obsDatetime).format("YYYY-MM-DD HH:mm"),
         },
     ];
 

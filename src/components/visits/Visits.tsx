@@ -12,7 +12,8 @@ function Visits(props: VisitProps) {
         setData(visits);
     }
     useEffect(() => {
-        handleLoad();
+        if (props.uuid)
+            handleLoad();
     }, [props.uuid]);
 
     const columns: TableColumn<VisitTypes>[] = [

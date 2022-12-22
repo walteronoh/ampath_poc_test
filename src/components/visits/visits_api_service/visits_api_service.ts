@@ -26,7 +26,7 @@ const viewPatientVisits = (uuid: string): Promise<Array<VisitTypes>> => {
             return results;
         }
         // Show user warning toast message
-        toast.error('Vitals Not Found.', { id: loadToastId });
+        toast.error('Visits Not Found.', { id: loadToastId });
         return [];
     }).catch((e) => {
         // Show user error toast message

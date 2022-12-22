@@ -9,6 +9,7 @@ interface PersonInfoTypes {
     display: string;
     gender: string;
     age: string;
+    birthdate: string;
 }
 
 interface ModalOptions {
