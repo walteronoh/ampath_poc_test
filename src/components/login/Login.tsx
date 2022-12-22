@@ -28,9 +28,9 @@ function Login() {
                 <img src={logo} />
                 <form className='login-form-items'>
                     <label>Username</label><br />
-                    <input type='text' placeholder='Enter Username' onChange={e => setUsername(e.target.value)} /><br />
+                    <input type='text' className='login-form-username-input' placeholder='Enter Username' onChange={e => setUsername(e.target.value)} /><br />
                     <label>Password</label><br />
-                    <input type='password' placeholder='Enter Password' onChange={e => setPassword(e.target.value)} /><br />
+                    <input type='password' className='login-form-password-input' placeholder='Enter Password' onChange={e => setPassword(e.target.value)} /><br />
                     <input type='button' value='LOGIN' onClick={handleLogin} /><br />
                 </form>
             </div>
